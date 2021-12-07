@@ -1,0 +1,91 @@
+	{
+		"team": "Bayern Munich",
+		"url": "https://www.flashscore.com/team/bayern-munich/nVp0wiqd/results/"
+	},
+
+	{
+		"team": "Dortmund",
+		"url": "https://www.flashscore.com/team/dortmund/nP1i5US1/results/"
+	},
+
+	{
+		"team": "Bayer Leverkusen",
+		"url": "https://www.flashscore.com/team/bayer-leverkusen/4jcj2zMd/results/"
+	},
+
+	{
+		"team": "Union Berlin",
+		"url": "https://www.flashscore.com/team/union-berlin/pzHW4oaE/results/"
+	},
+
+	{
+		"team": "Freiburg",
+		"url": "https://www.flashscore.com/team/freiburg/fiEQZ7C7/results/"
+	},
+
+	{
+		"team": "Hoffenheim",
+		"url": "https://www.flashscore.com/team/hoffenheim/hQAtP9Sl/results/"
+	},
+
+	{
+		"team": "Wolfburg",
+		"url": "https://www.flashscore.com/team/wolfsburg/nwkTahLL/results/"
+	},
+
+	{
+		"team": "RB Leibzig",
+		"url": "https://www.flashscore.com/team/rb-leipzig/KbS1suSm/results/"
+	},
+
+	{
+		"team": "Mainz",
+		"url": "https://www.flashscore.com/team/mainz/EuakNmc1/results/"
+	},
+
+	{
+		"team": "FC Koln",
+		"url": "https://www.flashscore.com/team/1-fc-koln/WG9pOTse/results/"
+	},
+
+	{
+		"team": "B. Monchengladbach",
+		"url": "https://www.flashscore.com/team/b-monchengladbach/88HSzjDr/results/"
+	},
+
+	{
+		"team": "Eintracht Frankfurt",
+		"url": "https://www.flashscore.com/team/eintracht-frankfurt/8vndvXTk/results/"
+	},
+
+	{
+		"team": "Bochum",
+		"url": "https://www.flashscore.com/team/bochum/8Y2m6ADe/results/"
+	},
+
+	{
+		"team": "Hertha Berlin",
+		"url": "https://www.flashscore.com/team/hertha-berlin/2y0u8Wrq/results/"
+	},
+
+	{
+		"team": "Stuttgart",
+		"url": "https://www.flashscore.com/team/vfb-stuttgart/nJQmYp1B/results/"
+	},
+
+	{
+		"team": "Augsburg",
+		"url": "https://www.flashscore.com/team/augsburg/fTVNku3I/results/"
+	},
+
+	{
+		"team": "Arminia Bielefeld",
+		"url": "https://www.flashscore.com/team/arminia-bielefeld/pp38UXK8/results/"
+	},
+ 
+                     {
+		"team": "Greuther Futh",
+		"url": "https://www.flashscore.com/team/greuther-furth/CCQGbik8/results/"
+	}
+                     
+                     

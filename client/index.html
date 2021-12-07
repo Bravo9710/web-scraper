@@ -1,0 +1,447 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<h1>Kris Bet</h1>
+
+		<button type="submit" onclick="submitChannel()">Update Results</button>
+		<button type="submit" onclick="loadCreators()">Show Results</button>
+		
+		<div class="container">
+			<div class="table">
+				<table>
+					<tr>
+						<th>Team</th>
+						<th>Over 0.5</th>
+						<th>Over 1.5</th>
+						<th>Over 2.5</th>
+						<th>Over 3.5</th>
+						<th>Over 4.5</th>
+
+						<th>Under 0.5</th>
+						<th>Under 1.5</th>
+						<th>Under 2.5</th>
+						<th>Under 3.5</th>
+						<th>Under 4.5</th>
+					</tr>
+				</table>
+			</div><!-- /.table -->
+		</div>
+
+		<script>
+
+			function submitChannel() {
+				fetch('http://localhost:3000/creators', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				})
+			}
+
+			function newEl(type, attrs={}) {
+				const el = document.createElement(type);
+				for (let attr in attrs) {
+					const value = attrs[attr];
+					if (attr == 'innerText') el.innerText = value;
+					else el.setAttribute(attr, value);
+				}
+				return el;
+			}
+
+			async function loadCreators() {
+				const res = await fetch('http://localhost:3000/creators');
+				const creators = await res.json();
+
+				const listTeams = document.querySelector('.table table tbody');
+
+				creators.forEach(creator => {
+					const card = newEl('tr');
+					const title = newEl('td', {innerText: creator.team});
+
+					let over0 = 0
+					let over1 = 0
+					let over2 = 0
+					let over3 = 0
+					let over4 = 0
+					let under0 = 0
+					let under1 = 0
+					let under2 = 0
+					let under3 = 0
+					let under4 = 0
+
+					let domesticLeague = []
+					let domesticLeagueFlag = false
+
+					let euroTurnaments = []
+					let euroTurnamentsFlag = false
+
+					let otherTurnaments = []
+					let otherTurnamentsFlag = false
+
+					for (let i = 0; i < creator.table.length; i++) {
+						const pattern = /[^0-9]/g;
+						// console.log(creator.table[i].slice(0, 1).match(pattern) + `: ${i}`);
+
+						if (creator.table[i] == "ENGLAND\nPremier League\nStandings") {
+							domesticLeagueFlag = true
+							euroTurnamentsFlag = false
+							otherTurnamentsFlag = false
+							continue
+						} else if (creator.table[i].includes("EUROPE")) {
+							domesticLeagueFlag = false
+							euroTurnamentsFlag = true
+							otherTurnamentsFlag = false
+							continue
+						} else if (creator.table[i].slice(0, 1).match(pattern)) {
+							domesticLeagueFlag = false
+							euroTurnamentsFlag = false
+							otherTurnamentsFlag = true
+							continue
+						}
+
+						if(domesticLeagueFlag) {
+							domesticLeague.push(creator.table[i])
+						} else if (euroTurnamentsFlag) {
+							euroTurnaments.push(creator.table[i])
+						} else if (otherTurnamentsFlag) {
+							otherTurnaments.push(creator.table[i])
+						}
+					}
+
+					for (const string of domesticLeague) {
+						const array = string.split(/\r\n|\n\r|\n|\r/);
+						const goalsSum = parseInt(array[3]) + parseInt(array[4])
+
+						if (goalsSum == 0) {
+							under0++
+							under1++
+							under2++
+							under3++
+							under4++
+						} else if (goalsSum == 1) {
+							over0++
+							under1++
+							under2++
+							under3++
+							under4++
+						} else if (goalsSum == 2) {
+							over0++
+							over1++
+							under2++
+							under3++
+							under4++
+						} else if (goalsSum == 3) {
+							over0++
+							over1++
+							over2++
+							under3++
+							under4++
+						} else if (goalsSum == 4) {
+							over0++
+							over1++
+							over2++
+							over3++
+							under4++
+						} else if (goalsSum > 4) {
+							over0++
+							over1++
+							over2++
+							over3++
+							over4++
+						}
+					}
+
+					const percentSumOver0 = over0/domesticLeague.length*100;
+					const percentSumOver1 = over1/domesticLeague.length*100;
+					const percentSumOver2 = over2/domesticLeague.length*100;
+					const percentSumOver3 = over3/domesticLeague.length*100;
+					const percentSumOver4 = over4/domesticLeague.length*100;
+
+					const percentSumUnder0 = under0/domesticLeague.length*100;
+					const percentSumUnder1 = under1/domesticLeague.length*100;
+					const percentSumUnder2 = under2/domesticLeague.length*100;
+					const percentSumUnder3 = under3/domesticLeague.length*100;
+					const percentSumUnder4 = under4/domesticLeague.length*100;
+
+					const percentOver0 = newEl('td', {innerText: parseFloat(percentSumOver0).toFixed(1) + '%'});
+					const percentOver1 = newEl('td', {innerText: parseFloat(percentSumOver1).toFixed(1) + '%'});
+					const percentOver2 = newEl('td', {innerText: parseFloat(percentSumOver2).toFixed(1) + '%'});
+					const percentOver3 = newEl('td', {innerText: parseFloat(percentSumOver3).toFixed(1) + '%'});
+					const percentOver4 = newEl('td', {innerText: parseFloat(percentSumOver4).toFixed(1) + '%'});
+
+					const percentUnder0 = newEl('td', {innerText: parseFloat(percentSumUnder0).toFixed(1) + '%'});
+					const percentUnder1 = newEl('td', {innerText: parseFloat(percentSumUnder1).toFixed(1) + '%'});
+					const percentUnder2 = newEl('td', {innerText: parseFloat(percentSumUnder2).toFixed(1) + '%'});
+					const percentUnder3 = newEl('td', {innerText: parseFloat(percentSumUnder3).toFixed(1) + '%'});
+					const percentUnder4 = newEl('td', {innerText: parseFloat(percentSumUnder4).toFixed(1) + '%'});
+
+					card.appendChild(title);
+
+					card.appendChild(percentOver0);
+					card.appendChild(percentOver1);
+					card.appendChild(percentOver2);
+					card.appendChild(percentOver3);
+					card.appendChild(percentOver4);
+
+					card.appendChild(percentUnder0);
+					card.appendChild(percentUnder1);
+					card.appendChild(percentUnder2);
+					card.appendChild(percentUnder3);
+					card.appendChild(percentUnder4);
+
+					listTeams.appendChild(card);
+				})
+			}
+
+		</script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				outline: 0;
+				box-sizing: border-box;
+			}
+
+			*:before,
+			*:after {
+				box-sizing: inherit;
+			}
+
+			article,
+			aside,
+			details,
+			figcaption,
+			figure,
+			footer,
+			header,
+			hgroup,
+			menu,
+			nav,
+			section,
+			summary,
+			main {
+				display: block;
+			}
+
+			template {
+				display: none;
+			}
+
+			html {
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+				tap-highlight-color: rgba(0,0,0,0);
+			}
+
+			body {
+				-moz-osx-font-smoothing: grayscale;
+				-webkit-font-smoothing: antialiased;
+				font-smoothing: antialiased;
+				text-size-adjust: none;
+			}
+
+			img,
+			iframe,
+			video,
+			audio,
+			object {
+				max-width: 100%;
+			}
+
+			img,
+			iframe {
+				border: 0 none;
+			}
+
+			img {
+				height: auto;
+				display: inline-block;
+				vertical-align: middle;
+			}
+
+
+			img,
+			[style*="background-image"] {
+				image-rendering: -webkit-optimize-contrast;
+			}
+
+			b,
+			strong {
+				font-weight: bold;
+			}
+
+			address {
+				font-style: normal;
+			}
+
+			svg:not(:root) {
+				overflow: hidden;
+			}
+
+			a,
+			button,
+			input[type="submit"],
+			input[type="button"],
+			input[type="reset"],
+			input[type="file"],
+			input[type="image"],
+			label[for] {
+				cursor: pointer;
+			}
+
+			a[href^="tel"],
+			button[disabled],
+			input[disabled],
+			textarea[disabled],
+			select[disabled] {
+				cursor: default;
+			}
+
+			button::-moz-focus-inner,
+			input::-moz-focus-inner {
+				padding: 0;
+				border: 0;
+			}
+
+			input[type="text"],
+			input[type="password"],
+			input[type="date"],
+			input[type="datetime"],
+			input[type="datetime-local"],
+			input[type="month"],
+			input[type="week"],
+			input[type="email"],
+			input[type="number"],
+			input[type="search"],
+			input[type="tel"],
+			input[type="time"],
+			input[type="url"],
+			input[type="color"],
+			textarea,
+			a[href^="tel"] {
+				appearance: none;
+			}
+
+			input[type="search"]::-webkit-search-cancel-button,
+			input[type="search"]::-webkit-search-decoration {
+				appearance: none;
+			}
+
+			textarea {
+				overflow: auto;
+				-webkit-overflow-scrolling: touch;
+				overflow-scrolling: touch;
+			}
+
+			button,
+			input,
+			optgroup,
+			select,
+			textarea {
+				font-family: inherit;
+				font-size: inherit;
+				color: inherit;
+				-moz-osx-font-smoothing: grayscale;
+				-webkit-font-smoothing: antialiased;
+				font-smoothing: antialiased;
+			}
+
+			button,
+			select {
+				text-transform: none;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+
+			nav ul,
+			nav ol {
+				list-style: none outside none;
+			}
+
+			input::placeholder {
+				color: inherit;
+				opacity: 1;
+			}
+			textarea::placeholder {
+				color: inherit;
+				opacity: 1;
+			}
+
+			input:-webkit-autofill {
+				-webkit-text-fill-color: inherit;
+				-webkit-box-shadow: 0 0 0 1000px #fff inset;
+			}
+
+			input[type=text],
+			input[type=button],
+			input[type=tel],
+			input[type=email],
+			input[type=submit],
+			input[type=date],
+			input[type=search],
+			textarea {
+				appearance: none;
+			}
+
+			@media (prefers-reduced-motion: no-preference) {
+				:root {
+					scroll-behavior: smooth;
+				}
+			}
+
+
+			.container {
+				display: flex;
+				flex-direction: column; 
+			}
+			.card {
+				padding: 10px; 
+				border: 1px solid black;
+				display: inline-block; 
+			}
+
+			h4 {
+				margin: 0 0 13px; 
+			}
+
+			.table table {
+				text-align: center; 
+			}
+
+			.table tr {
+				border: 1px solid #000; 
+				-webkit-transition: background-color .4s; 
+				     -o-transition: background-color .4s; 
+				        transition: background-color .4s; 
+			}
+
+			.table tr:hover td {
+				background-color: #e3f0ff !important; 
+			}
+
+			.table tr:nth-child(odd) {
+				background-color: #eee; 
+			}
+
+			.table td {
+				padding: 5px 15px; 
+				border-left: 1px solid #000; 
+			}
+
+			.table td:first-child {
+				text-align: left; 
+			}
+
+			.card span {
+				display: block; 
+				color: #000; 
+			}
+		</style>
+
+	</body>
+</html>
