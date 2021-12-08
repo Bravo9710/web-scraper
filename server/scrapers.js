@@ -11,6 +11,7 @@ async function scrapeData(leagues) {
 	const page = await browser.newPage();
 
 	const scrapeData = async () => {
+		let teamStats = []
 		let stats = []
 
 		for (let i = 0; i < leagues.length; i++) {
@@ -26,6 +27,14 @@ async function scrapeData(leagues) {
 					teamsLinks.push(`${teamLink}results/`);
 				})
 				return (teamsLinks);
+			})
+
+			let leagueName = await page.$$eval('.teamHeader__information', name => {
+				name.map(function(e) {
+					return e.querySelector('.teamHeader__name').innerText
+				})
+
+				return name[0]
 			})
 
 			for (let i = 0; i < links.length; i++) {
@@ -49,17 +58,19 @@ async function scrapeData(leagues) {
 					return (sortData);
 				})
 
-				// console.log(eventTable)
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    DONT DELETE    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-				let matches = await page.$$eval('.event__match', matches => {
-					let goalsSum = matches.map(function(match) {
-						const homeGoals = parseInt(match.querySelector('.event__score--home').textContent)
-						const awayGoals = parseInt(match.querySelector('.event__score--away').textContent)
+				// let matches = await page.$$eval('.event__match', matches => {
+				// 	let goalsSum = matches.map(function(match) {
+				// 		const homeGoals = parseInt(match.querySelector('.event__score--home').textContent)
+				// 		const awayGoals = parseInt(match.querySelector('.event__score--away').textContent)
 
-						return homeGoals + awayGoals
-					})
-					return goalsSum;
-				});
+				// 		return homeGoals + awayGoals
+				// 	})
+				// 	return goalsSum;
+				// });
+				
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    DONT DELETE    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 				let teamName = await page.$$eval('.teamHeader__information', name => {
 					return name.map(function(e) {
@@ -67,15 +78,28 @@ async function scrapeData(leagues) {
 					})
 				})
 
-				stats.push({team: teamName[0], results: matches, table: event})
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    DONT DELETE    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				// teamStats.push({team: teamName[0], results: matches, table: event})
+				teamStats.push({team: teamName[0], table: event});
+				// teamStats = {team: teamName[0], table: event}
+				// teamStats.push({team: teamName[0], table: event});
+				// teamStats.push({
+				// 				league: leagueName,
+				// 				teams: {
+				// 					team: teamName[0], 
+				// 					table: event
+				// 				}
+				// 			})
 			}
+
+			// stats.push({league: leagueName, teams: teamStats})
 		}
 
 		browser.close();
 
-		return stats;
+		return teamStats;
 	}
-	
+
 	return scrapeData();
 }
 

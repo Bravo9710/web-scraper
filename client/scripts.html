@@ -25,8 +25,14 @@ async function loadCreators() {
 
 	listTeams.innerHTML = '';
 
+	let teamPosition = 0
+
+	console.log(creators);
+
 	creators.forEach(creator => {
 		const card = newEl('tr');
+
+		teamPosition++
 
 		let over0 = 0
 		let over1 = 0
@@ -50,7 +56,6 @@ async function loadCreators() {
 
 		for (let i = 0; i < creator.table.length; i++) {
 			const pattern = /[^0-9]/g;
-			// console.log(creator.table[i].slice(0, 1).match(pattern) + `: ${i}`);
 
 			if (creator.table[i] == "ENGLAND\nPremier League\nStandings" || creator.table[i] == "SPAIN\nLaLiga\nStandings") {
 				domesticLeagueFlag = true
@@ -82,10 +87,8 @@ async function loadCreators() {
 		const numberOfMatches = rounds !='' ? rounds : domesticLeague.length;
 
 		const teamMatches = newEl('span', {innerText: `(${numberOfMatches})`});
-		const title = newEl('td', {innerText: `${creator.team}`});
-		// const title = newEl('td', {innerText: `${teamPosition}. ${creator.team}`});
-
-		console.log(numberOfMatches);
+		// const title = newEl('td', {innerText: `${creator.team}`});
+		const title = newEl('td', {innerText: `${teamPosition}. ${creator.team}`});
 
 		title.appendChild(teamMatches);
 
