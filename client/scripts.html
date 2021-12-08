@@ -52,7 +52,7 @@ async function loadCreators() {
 			const pattern = /[^0-9]/g;
 			// console.log(creator.table[i].slice(0, 1).match(pattern) + `: ${i}`);
 
-			if (creator.table[i] == "ENGLAND\nPremier League\nStandings") {
+			if (creator.table[i] == "ENGLAND\nPremier League\nStandings" || creator.table[i] == "SPAIN\nLaLiga\nStandings") {
 				domesticLeagueFlag = true
 				euroTurnamentsFlag = false
 				otherTurnamentsFlag = false
@@ -82,7 +82,8 @@ async function loadCreators() {
 		const numberOfMatches = rounds !='' ? rounds : domesticLeague.length;
 
 		const teamMatches = newEl('span', {innerText: `(${numberOfMatches})`});
-		const title = newEl('td', {innerText: creator.team});
+		const title = newEl('td', {innerText: `${creator.team}`});
+		// const title = newEl('td', {innerText: `${teamPosition}. ${creator.team}`});
 
 		console.log(numberOfMatches);
 

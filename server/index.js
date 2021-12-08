@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const path = './results.json';
+const pathLeagues = './leagues.json';
 
 const bodyParser = require('body-parser');
 
@@ -29,11 +30,11 @@ app.get('/creators', async (req, res) => {
 })
 
 app.post('/creators', async (req, res) => {
-	let rawdata = await fs.readFileSync('./teams.json');
-	let teams = await JSON.parse(rawdata);
-	
+	let rawdata = await fs.readFileSync('./leagues.json');
+	let leagues = await JSON.parse(rawdata);
+
 	const getData = async () => {
-		return await scrapers.scrapeData(teams)
+		return await scrapers.scrapeData(leagues)
 	}
 
 	getData().then(data => {
