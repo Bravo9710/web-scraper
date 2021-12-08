@@ -2,10 +2,5 @@
 	{
 		"league": "Premier League",
 		"url": "https://www.flashscore.com/football/england/premier-league/standings/"
-	},
-
-	{
-		"league": "LaLiga",
-		"url": "https://www.flashscore.com/football/spain/laliga/standings/"
 	}
 ]
