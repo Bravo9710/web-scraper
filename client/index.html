@@ -1,11 +1,23 @@
 <html>
 	<head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<title>Kris Bet</title>
 
 		<link rel="stylesheet" href="style.css" type="text/css" media="all" />
 	</head>
 	<body>
 		<h1>Kris Bet</h1>
+
+		<div class="table">
+			<table>
+				<tr>
+					<th>sss</th>
+				</tr>
+				
+				<tr>
+					<td></td>
+				</tr>
+			</table>
+		</div><!-- /.table -->
 
 		<div class="form">
 			<div class="form__head">
@@ -13,55 +25,47 @@
 					<ul>
 						<li>
 							<button class="btn" onclick="submitChannel()">Update Results</button>
+
+							<button class="btn btn--hidden js-split-btn" onclick="homeResults()">Home</button>
 						</li>
 
 						<li>
-							<button class="btn btn--alt" onclick="loadCreators()">Show Results</button>
+							<button class="btn btn--alt" onclick="loadCreators()">Show/Reset Results</button>
+
+							<button class="btn btn--alt btn--hidden js-split-btn" onclick="awayResults()">Away</button>
 						</li>
 					</ul>
 				</div><!-- /.form__actions -->
 
 				<div class="form__row">
-					<label for="rounds" class="form__label hidden">Last N matches</label>
-					
-					<div class="form__controls">
-						<input type="number" class="field js-matches-number" name="rounds" id="rounds" value="" placeholder="Last N matches">
-					</div><!-- /.form__controls -->
+					<div class="form__col">
+						<label for="rounds" class="form__label hidden">Last N matches</label>
+						
+						<div class="form__controls">
+							<input type="number" class="field js-matches-number" name="rounds" id="rounds" value="" placeholder="Last N matches">
+						</div><!-- /.form__controls -->
+					</div><!-- /.form__col -->
+
+					<div class="form__col">
+						<div class="form__row">
+							<label for="leagues" class="form__label hidden">Leagues</label>
+							
+							<div class="form__controls">
+								<div class="select">
+									<select name="leagues" id="leagues">
+										<option value="all">All</option>
+									</select>
+								</div><!-- /.select -->
+							</div><!-- /.form__controls -->
+						</div><!-- /.form__row -->
+					</div><!-- /.form__col -->
 				</div><!-- /.form__row -->
 			</div><!-- /.form__head -->
 		</div><!-- /.form -->
 		
-		<div class="container">
-			<div class="table">
-				<h2>Premier League</h2>
+		<div class="container"></div>
 
-				<table>
-					<colgroup>
-						<col class="table__col-1" span="1">
-						<col class="table__col-2" span="5">
-						<col class="table__col-3" span="5">
-					</colgroup>
-
-					<tr>
-						<th>Team</th>
-						<th>Over 0.5</th>
-						<th>Over 1.5</th>
-						<th>Over 2.5</th>
-						<th>Over 3.5</th>
-						<th>Over 4.5</th>
-
-						<th>Under 0.5</th>
-						<th>Under 1.5</th>
-						<th>Under 2.5</th>
-						<th>Under 3.5</th>
-						<th>Under 4.5</th>
-					</tr>
-
-					<tbody class="table__body"></tbody>
-				</table>
-			</div><!-- /.table -->
-		</div>
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="scripts.html" type="text/javascript"></script>
 	</body>
 </html>

@@ -11,13 +11,37 @@ async function scrapeData(leagues) {
 	const page = await browser.newPage();
 
 	const scrapeData = async () => {
-		let teamStats = []
-		let stats = []
+		let leaguesStats = []
 
 		for (let i = 0; i < leagues.length; i++) {
+			let teamStats = []
+
+			await page.goto(leagues[i].fixtures, { waitUntil: "load" })
+			console.log('====  ' + leagues[i].league + ' Fixtures  ====')
+
+			let fixtures = await page.$$eval('.event', table => {
+				const fixturesMatches = []
+
+				table.map(function(e) {
+					const list = e.querySelector('.sportName')
+
+					for (let i = 0; i < list.children.length; i++) {
+						if (list.children[i].innerText.includes("Round") && i >= 2) {
+							return
+						}
+
+						fixturesMatches.push(list.children[i].innerText)
+					}
+						// fixturesMatches.push(list.children[0].innerText)
+
+				})
+				return (fixturesMatches);
+			})
+
+			console.log(fixtures)
 
 			await page.goto(leagues[i].url, { waitUntil: "load" })
-			console.log('====  ' + leagues[i].league + '  ====')
+			console.log('====  ' + leagues[i].league + ' Teams  ====')
 
 			let links = await page.$$eval('.ui-table .ui-table__body .ui-table__row', table => {
 				const teamsLinks = []
@@ -30,11 +54,9 @@ async function scrapeData(leagues) {
 			})
 
 			let leagueName = await page.$$eval('.teamHeader__information', name => {
-				name.map(function(e) {
+				return name.map(function(e) {
 					return e.querySelector('.teamHeader__name').innerText
 				})
-
-				return name[0]
 			})
 
 			for (let i = 0; i < links.length; i++) {
@@ -93,12 +115,21 @@ async function scrapeData(leagues) {
 			}
 
 			// stats.push({league: leagueName, teams: teamStats})
+			leaguesStats.push({leagueName: leagueName[0], fixtures: fixtures, teams: teamStats})
 		}
+
+		// console.log(leaguesStats)
+		// console.log(teamStats);
+
 
 		browser.close();
 
-		return teamStats;
+
+		return leaguesStats;
 	}
+
+	
+
 
 	return scrapeData();
 }

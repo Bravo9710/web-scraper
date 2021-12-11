@@ -237,6 +237,7 @@ textarea {
 .container {
 	display: flex;
 	flex-direction: column; 
+	padding-top: 25px; 
 }
 .card {
 	padding: 10px; 
@@ -246,6 +247,14 @@ textarea {
 
 h4 {
 	margin: 0 0 13px; 
+}
+
+.table {
+	padding-bottom: 45px; 
+}
+
+.table h3 {
+	margin: 10px 0 10px; 
 }
 
 .table table {
@@ -262,6 +271,10 @@ h4 {
 
 .table tr:nth-child(odd) {
 	background-color: #444; 
+}
+
+.table th {
+	cursor: pointer;
 }
 
 .table td {
@@ -297,13 +310,20 @@ h4 {
 }
 
 .btn {
+	min-width: 170px;
+	display: block; 
+	width: 100%; 
 	border: none; 
 	background-color: #436e21;
 	padding: 7px 11px 9px; 
 	border-radius: 10px; 
-	-webkit-transition: color .4s, background-color .4s; 
-	     -o-transition: color .4s, background-color .4s; 
-	        transition: color .4s, background-color .4s; 
+	-webkit-transition: color .4s, background-color .4s, opacity .4s; 
+	     -o-transition: color .4s, background-color .4s, opacity .4s; 
+	        transition: color .4s, background-color .4s, opacity .4s; 
+}
+
+.btn + .btn {
+	margin-top: 10px; 
 }
 
 .btn:hover {
@@ -314,6 +334,16 @@ h4 {
 	background-color: #5baeb7;
 }
 
+.btn--hidden {
+	opacity: 0; 
+	pointer-events: none; 
+}
+
+.btn--hidden.is-shown {
+	opacity: 1; 
+	pointer-events: all; 
+}
+
 .btn--alt:hover {
 	background-color: #436e21;
 }
@@ -322,9 +352,18 @@ h4 {
 	border: 1px solid #fff; 
 	background-color: transparent; 
 	padding: 3px 9px 5px; 
+
+}
+.select select {
+	width: 100%; 
+	border: 1px solid #fff; 
+	background-color: transparent; 
+	padding: 3px 9px 5px; 
 }
 
-.form .form__head {
+
+.form .form__head,
+.form .form__body {
 	display: -webkit-flex; 
 	undefineddisplay: -moz-flex; 
 	undefineddisplay: -ms-flex; 
@@ -332,6 +371,24 @@ h4 {
 	undefineddisplay: flex; 
 	-ms-align-items: center; 
 	    align-items: center; 
+}
+
+.form__row {
+	display: -webkit-flex; 
+	undefineddisplay: -moz-flex; 
+	undefineddisplay: -ms-flex; 
+	undefineddisplay: -o-flex; 
+	undefineddisplay: flex; 
+	-webkit-flex-direction: column; 
+	   -moz-flex-direction: column; 
+	    -ms-flex-direction: column; 
+	     -o-flex-direction: column; 
+	        flex-direction: column; 
+	justify-content: space-around; 
+}
+
+.form__col + .form__col {
+	padding-top: 15px; 
 }
 
 .form .form__actions {
