@@ -29,15 +29,17 @@ app.get('/creators', async (req, res) => {
 	}
 })
 
+
+
+async function getData(leagues) {
+	return await scrapers.scrapeData(leagues)
+}
+
 app.post('/creators', async (req, res) => {
 	let rawdata = await fs.readFileSync('./leagues.json');
 	let leagues = await JSON.parse(rawdata);
 
-	const getData = async () => {
-		return await scrapers.scrapeData(leagues)
-	}
-
-	getData().then(data => {
+	getData(leagues).then(data => {
 		writeFile(path, JSON.stringify(data), {flag: 'a+'}, (error) => {
 			if (error) {
 				console.log('An error has occurred ', error);

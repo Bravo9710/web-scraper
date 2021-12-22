@@ -255,6 +255,9 @@ h4 {
 
 .table h3 {
 	margin: 10px 0 10px; 
+	-ms-align-items: center; 
+	    align-items: center; 
+	justify-content: space-between; 
 }
 
 .table table {

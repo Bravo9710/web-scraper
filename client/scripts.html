@@ -4,9 +4,6 @@ const container = document.querySelector('.container');
 function submitChannel() {
 	fetch('http://localhost:3000/creators', {
 		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
 	})
 }
 
@@ -64,7 +61,12 @@ function sortTournaments(team) {
 	for (let i = 0; i < team.table.length; i++) {
 		const pattern = /[^0-9]/g;
 
-		if (team.table[i] == "ENGLAND\nPremier League\nStandings" || team.table[i] == "SPAIN\nLaLiga\nStandings") {
+		if (team.table[i] == "ENGLAND\nPremier League\nStandings" 
+			|| team.table[i] == "SPAIN\nLaLiga\nStandings" 
+			|| team.table[i] == "GERMANY\nBundesliga\nStandings" 
+			|| team.table[i] == "ITALY\nSerie A\nStandings" 
+			|| team.table[i] == "FRANCE\nLigue 1\nStandings"
+			) {
 			domesticLeagueFlag = true
 			euroTurnamentsFlag = false
 			otherTurnamentsFlag = false
