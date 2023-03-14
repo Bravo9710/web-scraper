@@ -29,14 +29,12 @@ app.get('/creators', async (req, res) => {
 	}
 })
 
-
-
 async function getData(leagues) {
 	return await scrapers.scrapeData(leagues)
 }
 
 app.post('/creators', async (req, res) => {
-	let rawdata = await fs.readFileSync('./leagues.json');
+	let rawdata = await fs.readFileSync('./bookmakers.json');
 	let leagues = await JSON.parse(rawdata);
 
 	getData(leagues).then(data => {

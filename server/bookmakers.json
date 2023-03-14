@@ -1,0 +1,44 @@
+[
+	{
+		"bookmaker": "flashscore",
+		"urls": [
+			"https://www.flashscore.bg/soccer/england/premier-league/fixtures/",
+			"https://www.flashscore.bg/soccer/germany/bundesliga/fixtures/",
+			"https://www.flashscore.bg/soccer/spain/laliga/fixtures/",
+			"https://www.flashscore.bg/soccer/italy/serie-a/fixtures/",
+			"https://www.flashscore.bg/soccer/france/ligue-1/fixtures/"
+		]
+	},
+	{
+		"bookmaker": "winbet",
+		"urls": [
+			"https://winbet.bg/sports/soccer-1001/premier-league-19000000017?group=100001&tab=matches",
+			"https://winbet.bg/sports/soccer-1001/bundesliga-19000000035?group=100001&tab=matches",
+			"https://winbet.bg/sports/soccer-1001/laliga-19000000008?group=100001&tab=matches",
+			"https://winbet.bg/sports/soccer-1001/serie-a-19000000023?group=100001&tab=matches",
+			"https://winbet.bg/sports/soccer-1001/ligue-1-19000000034?group=100001&tab=matches"
+		]
+	},
+	{
+		"bookmaker": "inbet",
+		"urls": [
+			"https://inbet.com/sports/soccer-1001/premier-league-19000000017?group=100001&tab=matches",
+			"https://inbet.com/sports/soccer-1001/bundesliga-19000000035?group=100001&tab=matches",
+			"https://inbet.com/sports/soccer-1001/laliga-19000000008?group=100001&tab=matches",
+			"https://inbet.com/sports/soccer-1001/serie-a-19000000023?group=100001&tab=matches",
+			"https://inbet.com/sports/soccer-1001/ligue-1-19000000034?group=100001&tab=matches"
+		]
+	},
+	{
+		"bookmaker": "8888",
+		"urls": [
+			"https://8888.bg/sport7/#/tree/all/0/0/2936,2950,2941,2942,2943/0/odds/byleague"
+		]
+	},
+	{
+		"bookmaker": "betano",
+		"urls": [
+			"https://www.betano.bg/sport/futbol/ligi/1r,5r,1635r,216r,215r/"
+		]
+	}
+]
